@@ -7,5 +7,8 @@
  * 本项目将以ES6规范来组织代码，用webpack打包输出，ES6及webpack请自行百度
 
  ## 项目运行
+
+ ```  
      npm install
-     npm start
+     npm start  
+ ```
