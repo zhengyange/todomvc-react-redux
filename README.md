@@ -6,9 +6,9 @@
  * 鄙人2天熟悉react并撰写demo，1天熟悉redux，第4天开始写项目，直到项目完成依然不知所以然，所以现在回头来看官方demo，把自己学习reac和redux时，想看而看不到的教程编写出来，大家互相学习
  * 本项目将以ES6规范来组织代码，用webpack打包输出，ES6及webpack请自行百度
 
- ## 项目运行
+## 项目运行
 
- ```  
-     npm install
-     npm start  
- ```
+```  
+    npm install
+    npm start  
+```
