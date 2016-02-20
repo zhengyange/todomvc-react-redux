@@ -7,23 +7,47 @@ class MainSection extends Component {
 		super();
 	}
 
+	//完成所有任务操作
+	handleCompleteAll(e){
+		this.props.completeAll(e.target.checked);
+	}
 
 	render() {
 		const filteredTodos = this.props.todos;
 		const completeTodo = this.props.completeTodo;
+		const deleteTodo = this.props.deleteTodo; 
+		const activeCount = this.props.activeCount;
+		const completedCount = this.props.completedCount;
+		const onClearCompeleted = this.props.onClearCompeleted;
+		const onFilterAll = this.props.onFilterAll;
+		const filter = this.props.filter;
 		return (
 			<section className="main">
-				<input className="toggle-all" type="checkbox" />
+				<input 
+					className="toggle-all" 
+					type="checkbox" 
+					onChange={(e) => this.handleCompleteAll(e)}/>
 				<ul className="todo-list">
-					{filteredTodos.map((todo) => 
-						<TodoItem 
-							key={todo.id} 
-							todo={todo}	
-							completeTodo={completeTodo}
-						/>
+					{filteredTodos.map((todo) =>{
+						if(todo){
+							return <TodoItem 
+								key={todo.id} 
+								todo={todo}	
+								completeTodo={completeTodo}
+								deleteTodo={deleteTodo}
+							/>
+						}
+					} 
+						
 					)}
 				</ul>
-				<Footer />
+				<Footer 
+					activeCount={activeCount}
+					completedCount={completedCount}
+					filter={filter}
+					onFilterAll={onFilterAll}
+					onClearCompeleted={onClearCompeleted}
+				/>
 			</section>
 		);
 	}

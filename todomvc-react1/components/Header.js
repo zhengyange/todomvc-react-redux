@@ -8,10 +8,7 @@ class Header extends Component {
 	}
 
 	handleOnSave(text){
-		if(text.length !==0){
-			this.props.addTodo(text);
-		}
-		
+		this.props.addTodo(text);
 	}
 	render(){
 		return (

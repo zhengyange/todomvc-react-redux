@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import Header from '../components/Header.js';
 import MainSection from '../components/MainSection.js';
 
+import {
+	handleAddTodo,					//添加任务方法
+	handleCompleteTodo,				//完成单个任务操作函数
+	handleDeleteTodo,				//删除todo
+	handleCompleteAll,				//操作完成所有选项
+	handleOnClearCompeleted,		//清除已完成选项
+	handleOnFilterAll				//筛选显示
+} from '../reducers/appReducer.js';
 
 import '../components/app.css';
 
@@ -10,6 +18,13 @@ class App extends Component {
 	constructor(){
 		super();
 		this.state = {
+			allTodos: [
+				{
+					completed: false,
+					id: 0,
+					text: "Use Redux"
+				}
+			],
 			todos: [
 				{
 					completed: false,
@@ -20,38 +35,28 @@ class App extends Component {
 			actions: {
 
 			},
-			filter: "show_all"
+			filter: "SHOW_ALL",
+			activeCount: 1,
+			completedCount: 0
 		}
-	}
-
-	//添加列表函数
-	handleAddTodo(text){
-		let todos = this.state.todos;
-		let item = {
-			completed: false,
-			text: text,
-			id: todos.length
-		};
-		todos.unshift(item);
-		this.setState({todos: todos});
-	}
-
-	//
-	handleCompleteTodo(id){
-		let todos = this.state.todos;
-		todos[id].completed = !todos[id].completed;
-		this.setState({todos: todos});
 	}
 
 	render(){
 		return (
 			<div>
 				<Header 
-					addTodo={(e) => this.handleAddTodo(e)}
+					addTodo={handleAddTodo.bind(this)}
 				/>
 				<MainSection 
 					todos={this.state.todos}
-					completeTodo={(e) => this.handleCompleteTodo(e)}
+					activeCount={this.state.activeCount}
+					completedCount={this.state.completedCount}
+					filter={this.state.filter}
+					completeTodo={handleCompleteTodo.bind(this)}
+					deleteTodo={handleDeleteTodo.bind(this)}
+					completeAll={handleCompleteAll.bind(this)}
+					onClearCompeleted={handleOnClearCompeleted.bind(this)}
+					onFilterAll={handleOnFilterAll.bind(this)}
 				/>
 			</div>
 		)
