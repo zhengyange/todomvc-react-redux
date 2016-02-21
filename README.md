@@ -20,18 +20,8 @@
 ```
 
 ## 二 、todomvc-react  
-此demo我们会基于todomvc-rect，一步一个demo进行讲解，尤其让新手明白react中事件及数据传递的原理，下面正式开始
+此demo我们会基于todomvc-rect，一步一个demo进行讲解，尤其让新手明白react中事件及数据传递的原理，下面正式开始。从demo整体观察，发现每个组件的姿态改变都可能影响到其它组件的状态，所以我们遵循react官方推荐的方式，将会互相影响的组件的条件都放在组件的上父组件上，此demo，我们尽量只设定一个组件状态，放在组件的最外层组件上，即<App />上面，子组件需要改变父组件的状态，则通过回调函数进行操作。下面根据demo中的几个动作，对整个demo进行拆分
 
-### 1、todomvc-react-addTodo添加item逻辑及效果，  
-```javascript
-		import {
-			handleAddTodo,					//添加任务方法
-			handleCompleteTodo,				//完成单个任务操作函数
-			handleDeleteTodo,				//删除todo
-			handleCompleteAll,				//操作完成所有选项
-			handleOnClearCompeleted,		//清除已完成选项
-			handleOnFilterAll				//筛选显示
-		} from '../reducers/appReducer.js';
+### 1、todomvc-react-addTodo添加todo逻辑及效果，
+  
 
-		import '../components/app.css';
-```
