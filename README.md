@@ -12,3 +12,26 @@
     npm install
     npm start  
 ```
+
+## 一、todomvc-base  
+```
+此demo是一个基本的react组件组成的页面，无任何交互效果及操作逻辑，这个比较简单，经些就不做更多的讲解。
+我们的todo-react及todo-react-redux都会基于此demo进行开发，目的是比较两者开发的逻辑及效率等。  
+```
+
+## 二 、todomvc-react  
+此demo我们会基于todomvc-rect，一步一个demo进行讲解，尤其让新手明白react中事件及数据传递的原理，下面正式开始
+
+    ### 1、todomvc-react-addTodo添加item逻辑及效果，  
+    ```
+		import {
+	handleAddTodo,					//添加任务方法
+	handleCompleteTodo,				//完成单个任务操作函数
+	handleDeleteTodo,				//删除todo
+	handleCompleteAll,				//操作完成所有选项
+	handleOnClearCompeleted,		//清除已完成选项
+	handleOnFilterAll				//筛选显示
+} from '../reducers/appReducer.js';
+
+import '../components/app.css';
+    ```
