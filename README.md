@@ -23,7 +23,7 @@
 此demo我们会基于todomvc-rect，一步一个demo进行讲解，尤其让新手明白react中事件及数据传递的原理，下面正式开始
 
 ### 1、todomvc-react-addTodo添加item逻辑及效果，  
-    ```javascript
+```javascript
 		import {
 			handleAddTodo,					//添加任务方法
 			handleCompleteTodo,				//完成单个任务操作函数
@@ -34,4 +34,4 @@
 		} from '../reducers/appReducer.js';
 
 		import '../components/app.css';
-    ```
+```
