@@ -25,8 +25,8 @@
 ## 三、todomvc-react-redux
 此demo是利用redux开发react，也是基于todomvc-base进行开发，  
 
-  ### 1、todomvc-react-redux-actions  
-  此demo主要是编写redux部分js逻辑，完全和react组件没有关系，这也就是说，redux的逻辑及触发测试actions完全可以独立编写，在这个demo中，我们编写一个触发addTodo动作的js逻辑，进行测试redux代码，后面的demo代码都是基于这个demo。  
+### 1、todomvc-react-redux-actions  
+此demo主要是编写redux部分js逻辑，完全和react组件没有关系，这也就是说，redux的逻辑及触发测试actions完全可以独立编写，在这个demo中，我们编写一个触发addTodo动作的js逻辑，进行测试redux代码，后面的demo代码都是基于这个demo。  
   * 增加 `constants/actionsTypes.js`，此为App所有动作的集合  
   ```javascript  
 	export const ADD_TODO = 'ADD_TODO';
