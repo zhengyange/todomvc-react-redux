@@ -22,6 +22,123 @@
 ## 二 、todomvc-react  
 此demo我们会基于todomvc-rect，一步一个demo进行讲解，尤其让新手明白react中事件及数据传递的原理，下面正式开始。从demo整体观察，发现每个组件的姿态改变都可能影响到其它组件的状态，所以我们遵循react官方推荐的方式，将会互相影响的组件的条件都放在组件的上父组件上，此demo，我们尽量只设定一个组件状态，放在组件的最外层组件上，即<App />上面，子组件需要改变父组件的状态，则通过回调函数进行操作。下面根据demo中的几个动作，对整个demo进行拆分
 
-### 1、todomvc-react-addTodo添加todo逻辑及效果，
+## 三、todomvc-react-redux
+此demo是利用redux开发react，也是基于todomvc-base进行开发，  
+
+### 1、todomvc-react-redux-actions  
+此demo主要是编写redux部分js逻辑，完全和react组件没有关系，这也就是说，redux的逻辑及触发测试actions完全可以独立编写，在这个demo中，我们编写一个触发addTodo动作的js逻辑，进行测试redux代码，后面的demo代码都是基于这个demo。  
+  * 增加 `constants/actionsTypes.js`，此为App所有动作的集合  
+  ```javascript  
+	export const ADD_TODO = 'ADD_TODO';
+	
+  ```
+
+  * 增加`actions/appActions.js`，此为所有动作对应的生成函数  
+  ```javascript  
+    import * as types from '../constants/actionTypes.js';
+
+	export function addTodo(text) {
+	  return { type: types.ADD_TODO, text }
+	}
+	//action，是把数据传递到store的唯一来源，
+	//一般会通过store.dispatch()，将action传到store,
+	//多数情况下，action内部会使用字符串类型的type来表示将要的执行的动作，
+	//type通常会被定义成常量，建议单独存放action，方便管理
+	//应尽量减少在action中传递数据
+  ```  
+
+  * 增加`reducers/todos.js`，具体根据业务逻辑及actions编写  
+  ```javascript  
+	import { ADD_TODO } from '../constants/actionTypes.js';
+
+	const initialState = [
+	  {
+	    text: 'Use Redux',
+	    completed: false,
+	    id: 0
+	  }
+	]
+
+	export default function todos(state = initialState, action) {
+	  switch (action.type) {
+	    case ADD_TODO:
+	      return [
+	        {
+	          id: state.length,
+	          completed: false,
+	          text: action.text
+	        }, 
+	        ...state
+	      ]
+
+	    default:
+	      return state
+	  }
+	}
+  ```   
+
+  * 增加`reducers/appReducers.js`，项目中肯定需要拆分reducer，此文件的作用是将拆分的reducers，合并成最终的一个reducer  
+  ```javascript  
+	import { combineReducers } from 'redux';
+	import todos from './todos.js';
+
+	const rootReducer = combineReducers({
+	  todos
+	})
+
+	export default rootReducer
+  ```  
+
+  * 在`index.js`，中编写测试代码  
+  ```javascript  
+	import React from 'react';
+	import { render } from 'react-dom';
+	import { createStore } from 'redux';
+	import { Provider } from 'react-redux';
+	import App from './containers/App.js';
+	import appReducers from './reducers/rootReducer.js';
+	import { addTodo } from './actions/appActions.js';
+
+	let store = createStore(appReducers);
+	store.subscribe(() => 
+		console.log(store.getState())
+	)
+	console.log(store.getState());
+	store.dispatch(addTodo('Learn about actions'));
+	store.dispatch(addTodo('Learn about reducers'));
+	store.dispatch(addTodo('Learn about store'));
+	
+	//从以上代码也可看到，redux的代码测试可以单独进行，
+
+
+	render(
+		<App />,
+		document.getElementById('root')
+	)
+  ```  
+
+  * 运行查看redux测试效果  
+  ![redux测试效果][1]  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  [1]:/demo-images/m1.png
+
   
 
