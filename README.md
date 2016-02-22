@@ -77,7 +77,37 @@
 	}
   ```   
 
-  * 增加`reducers/appReducers.js`，项目中肯定需要拆分reducer，此文件的作用是将拆分的reducers，合并成最终的一个reducer  
+  * 增加`reducers/todos.js`，todos.js作为子reducer，只负责管理全局state中它负责的一部分数据，每个reducer的state参数不同，分别对应它所管理的那部分数据  
+  ```javascript  
+	import { ADD_TODO } from '../constants/actionTypes.js';
+
+	const initialState = [
+	  {
+	    text: 'Use Redux',
+	    completed: false,
+	    id: 0
+	  }
+	]
+
+	export default function todos(state = initialState, action) {
+	  switch (action.type) {
+	    case ADD_TODO:
+	      return [
+	        {
+	          id: state.length,
+	          completed: false,
+	          text: action.text
+	        }, 
+	        ...state
+	      ]
+
+	    default:
+	      return state
+	  }
+	}
+  ```    
+
+  * 增加`reducers/rootReducers.js`， 
   ```javascript  
 	import { combineReducers } from 'redux';
 	import todos from './todos.js';
@@ -85,6 +115,11 @@
 	const rootReducer = combineReducers({
 	  todos
 	})
+
+	//combineReducer()方法，将多个reducer合并成一个，接收一个对象作为参数，上面是ES6的对象的写法，它与combineReducers({todos:todos})一样。
+	//combineReducers() 所做的只是生成一个函数，这个函数来调用你的一系列 reducer，
+	//每个 reducer 根据它们的 key 来筛选出 state 中的一部分数据并处理，然后这个生成的函数所有 reducer 的结果合并成一个大的对象。
+	//这个对象就是redux生成的state，它的结构由传入的多个reducer的key决定
 
 	export default rootReducer
   ```  
@@ -100,6 +135,18 @@
 	import { addTodo } from './actions/appActions.js';
 
 	let store = createStore(appReducers);
+
+	//createStore():创建一个Redux store，来存放应用的所有state,
+	//应用中有且仅有一个store，
+	//store保存了应用所有state的对象，改变state的唯一方法就是dispatch action
+
+	//dispatch(action): 分发 action，这是触发state改变的唯一途径
+	//dispatch 会使用当前 getState() 的结果和传入的 action 以同步方式的调用 store 的 reduce 函数。
+	//返回值会被作为下一个 state。从现在开始，这就成为了 getState() 的返回值，同时变化监听器(change listener)会被触发。
+	
+	//subscribe(listener): 添加一个变化监听器，即一个回调函数
+	//每当 dispatch action 的时候就会执行，state 树中的一部分可能已经变化。你可以在回调函数里调用 getState() 来拿到当前 state。
+
 	store.subscribe(() => 
 		console.log(store.getState())
 	)
@@ -117,7 +164,7 @@
 	)
   ```  
 
-  * 运行查看redux测试效果  
+  * 运行查看redux测试效果，主要看state的变化  
   ![redux测试效果][1]  
 
 
