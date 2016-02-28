@@ -190,7 +190,7 @@
 
 
 
-  [1]:/demo-images/m1.png
+  [1]:/images/m1.png
 
   
 

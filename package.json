@@ -46,6 +46,10 @@
   "dependencies": {
     "babel-polyfill": "^6.5.0",
     "classnames": "^2.2.3",
-    "react-tappable": "^0.8.0"
+    "isomorphic-fetch": "^2.2.1",
+    "react-router-redux": "^4.0.0",
+    "react-tappable": "^0.8.0",
+    "redux-logger": "^2.6.0",
+    "zepto": "^1.0.1"
   }
 }
